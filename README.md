@@ -1,5 +1,6 @@
-# Machine_Learning_Techniques_Work
+# Machine Learning Techniques Work
 ### Classwork of the Machine Learning Techniques subject.
+
 
 ## Authors
 * Diego Andérica Richard
