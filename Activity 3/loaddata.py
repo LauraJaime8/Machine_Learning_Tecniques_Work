@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+
 """
-Created on Mon Mar 14 12:05:59 2016
 
 @author Diego Andérica Richard, Ruth Rodríguez-Manzaneque López, Laura Jaime Villamayor
 
 """
+
 import codecs
+
 def load_data(path):
         
     f = codecs.open(path, "r", "utf-8")

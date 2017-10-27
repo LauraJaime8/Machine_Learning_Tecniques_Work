@@ -1,22 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+
+@author: Ruth Rodríguez-Manzaneque López, Diego Andérica Richard y Laura Jaime Villamayor
+
+"""
+
 import matplotlib.pyplot as plt
 import numpy
-
-#http://docs.scipy.org/doc/scipy/reference/cluster.html
 from scipy import cluster
 from sklearn import preprocessing 
 import sklearn.neighbors
 
+import loaddata
 
 # 0. Load Data
-import loaddata
-records, names = loaddata.load_data("dengue_features_train.csv")
+records, names = loaddata.load_data("../Data/dengue_features_train.csv")
  
-#1. Normalization of the data
-#http://scikit-learn.org/stable/modules/preprocessing.html
-from sklearn import preprocessing 
+# 1. Normalization of the data
 min_max_scaler = preprocessing.MinMaxScaler()
 records = min_max_scaler.fit_transform(records)
 	
@@ -27,9 +29,7 @@ avSim = numpy.average(matsim)
 print "%s\t%6.2f" % ('Average Distance', avSim)
 
 # 3. Building the Dendrogram	
-# http://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage
 clusters = cluster.hierarchy.linkage(matsim, method = 'complete')
-# http://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.cluster.hierarchy.dendrogram.html
 cut_level = 6
 cluster.hierarchy.dendrogram(clusters, color_threshold = cut_level)
 plt.show()
@@ -41,8 +41,8 @@ print ('Estimated number of clusters: %d' % n_clusters_)
 
 for c in range(1, n_clusters_ + 1):
     print 'Group', c
+    
     for i in range(len(records[0])):
         column = [row[i] for j,row in enumerate(records) if labels[j] == c]
         if len(column) != 0:
             print i, numpy.mean(column)
-

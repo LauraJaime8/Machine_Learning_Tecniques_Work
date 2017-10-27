@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 14 12:05:59 2016
 
-@author: FranciscoP.Romero
+"""
+
+@author: Ruth Rodríguez-Manzaneque López, Diego Andérica Richard y Laura Jaime Villamayor
+
 """
 import codecs
+
 def load_data(path):
         
     f = codecs.open(path, "r", "utf-8")
@@ -28,8 +30,7 @@ def load_data(path):
                 line = line.replace(",,", ",0,")
         
             #Replace last unfilled field
-            while ",\n" in line:
-                line = line.replace(",\n", ",0\n")
+            line = line.replace(",\n", ",0\n")
            
             row = line.split(",")
             

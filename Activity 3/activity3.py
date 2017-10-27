@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+
 """
-Created on Sun Oct 15 20:01:48 2017
 
 @author Diego Andérica Richard, Ruth Rodríguez-Manzaneque López, Laura Jaime Villamayor
 
 """
+
 import loaddata
 import matplotlib.pyplot as plt
 from sklearn import preprocessing
@@ -12,7 +13,7 @@ from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 from sklearn import metrics
 
-def plotdata(data,labels,name): #def function plotdata
+def plotdata(data,labels,name): #Def function plotdata
     fig, ax = plt.subplots()
     plt.scatter([row[0] for row in data], [row[1] for row in data], c = labels)
     ax.grid(True)
@@ -21,7 +22,7 @@ def plotdata(data,labels,name): #def function plotdata
     plt.show()
 
 # 0. Load Data
-records, names = loaddata.load_data("dengue_features_train.csv")
+records, names = loaddata.load_data("../Data/dengue_features_train.csv")
 
 # 1. Normalization of the data
 min_max_scaler = preprocessing.MinMaxScaler()
@@ -69,6 +70,3 @@ labels = km.fit_predict(X_pca)
 
 # 7. Plotting final results
 plotdata(X_pca, labels, init)
-
-
-
