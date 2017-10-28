@@ -12,6 +12,6 @@ Python
 
 -----------------------------
 
-Machine Learning Techniques - 2017
-Faculty of Computer Science
+Machine Learning Techniques - 2017 <br>
+Faculty of Computer Science <br>
 University of Castilla-La Mancha - Spain
