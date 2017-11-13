@@ -10,7 +10,7 @@ Also there are features that only work as identificators (city, year, week of th
 Once the script is executed, it can be observed that there is a strong correlation between features 5 to 10 and 11. This makes sense because they are related to the total precipitation, 
 mean air temperature, dew point and humidity level.
 
-![Correlation](https://github.com/RuthRML/Machine_Learning_Techniques_Work/master/Activity 1/Images/1.png)
+![Correlation](https://github.com/RuthRML/Machine_Learning_Techniques_Work/master/Activity_1/Images/1.png)
 
 Also there is a correlation between features 4 and 12 (dirunal temperature and maximum air temperature).
 
