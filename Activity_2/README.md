@@ -16,7 +16,7 @@ After that, it has been cut to level 6 as is the most adequate to show the clust
 
 
 <p align="center">
-  <img src="https://github.com/RuthRML/Machine_Learning_Tecniques_Work/blob/master/Activity_2/Images/script_1.png">
+  <img src="https://github.com/RuthRML/Machine_Learning_Tecniques_Work/blob/master/Activity_2/Images/1.png">
 </p>
 
 There are four different clusters (starting from right to left):
@@ -32,6 +32,11 @@ There are several clusters (from left to right):
 * The turquoise corresponding to precipitations, humidity and temperature.
 * A cluster with an unique feature (reanalysis_relative_humidity_percent).
 * Last one corresponding to total precipitations.
+
+
+<p align="center">
+  <img src="https://github.com/RuthRML/Machine_Learning_Tecniques_Work/blob/master/Activity_2/Images/2.png">
+</p>
 
 
 
