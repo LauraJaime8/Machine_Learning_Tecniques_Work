@@ -14,6 +14,11 @@ between the points (0.35).
 Depending on the measure chosen and linkage (complete or average) different dendograms are obtained. At the end, the one resulting from Chebyshev with complete linkage has been chosen.
 After that, it has been cut to level 6 as is the most adequate to show the clusters.
 
+
+<p align="center">
+  <img src="https://github.com/RuthRML/Machine_Learning_Tecniques_Work/blob/master/Activity_2/Images/script_1.png">
+</p>
+
 There are four different clusters (starting from right to left):
 * Purple. Includes some weeks that have the maximum precipitations (fall months).
 * Blue. Includes weeks that have more precipitations than the mean of other seasons (summer months).
@@ -27,4 +32,7 @@ There are several clusters (from left to right):
 * The turquoise corresponding to precipitations, humidity and temperature.
 * A cluster with an unique feature (reanalysis_relative_humidity_percent).
 * Last one corresponding to total precipitations.
+
+
+
 
