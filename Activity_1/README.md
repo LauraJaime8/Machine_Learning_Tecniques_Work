@@ -18,5 +18,15 @@ Also there is a correlation between features 4 and 12 (dirunal temperature and m
 
 Another correlations are shown: between features 0 and 1 (maximum and minimum temperature) and between features 2 and 3 (average temperature and total precipitation).
 
+
+<p align="center">
+  <img src="https://github.com/RuthRML/Machine_Learning_Tecniques_Work/blob/master/Activity_1/Images/2.png">
+</p>
+
 ## 3.- Execute PCA and plot the results.
 When plotting, some outliers are discovered: features 52, 104 and to a lesser extent, 358. This happens because records 52 and 104 have been fulfilled with 0 as no data was provided in some features.
+
+
+<p align="center">
+  <img src="https://github.com/RuthRML/Machine_Learning_Tecniques_Work/blob/master/Activity_1/Images/3.png">
+</p>
