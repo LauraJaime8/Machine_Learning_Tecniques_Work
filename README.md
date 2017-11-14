@@ -7,6 +7,10 @@ The Dengue fever is a disease which is usual in tropical parts of the world, lik
 
 The development of the project is organized with different activities, each one focused in several types of techniques. The purpose is to learn from the basic to more advanced techniques.
 
+In the end, the prediction will be used to compete in the Driven Data Competition "DengAI: Predicting Disease Spread". 
+
+[DengAI: Prediting Disease Spread](https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/)
+
 ## Programming Language
 Python
 
