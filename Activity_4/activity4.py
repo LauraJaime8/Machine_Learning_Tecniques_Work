@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 
+It is computed the correlation among the features, then it is created a Decision Tree Regressor and it is performed a cross validation.
+
 @author Diego Andérica Richard, Ruth Rodríguez-Manzaneque López, Laura Jaime Villamayor
 
 """
@@ -21,10 +23,13 @@ features = pd.read_csv('../Data/dengue_features_train.csv')
 labels = pd.read_csv('../Data/dengue_labels_train.csv')
 datafr = pd.merge(features, labels, on=['city', 'year', 'weekofyear'])
 
+# Data is filtered to the years from 1997 to 2003.
 years_chosen = datafr['year'].isin(years)
 city = datafr['city'] == city
 
 datafr = datafr[years_chosen & city]
+
+# Replace no-data fields with the value 0.
 datafr = datafr.fillna(0)
 
 #1. Correlation between features and total cases
@@ -73,7 +78,7 @@ plt.show()
 
 # 3. Decision Tree Model
 
-# 3.1 Model Parametrization 
+# 3.1 Model Parametrization
 # Criterion: mse mean squared error, which is equal to variance reduction as feature selection criterion
 # Splitter: best/random
 # max_depth: low value avoids overfitting
@@ -103,8 +108,3 @@ plt.plot(range(2,30), total_scores, marker = 'o')
 plt.xlabel('max_depth')
 plt.ylabel('cv score')
 plt.show()
-
-
-
-
-
