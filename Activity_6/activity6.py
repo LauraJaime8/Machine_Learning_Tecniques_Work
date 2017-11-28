@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Nov 15 16:49:00 2017
 
-@author: Ruth
+"""
+
+@author: Ruth Rodríguez-Manzaneque López, Diego Andérica Richard y Laura Jaime Villamayor
+
 """
 
 import pandas as pd
