@@ -17,6 +17,8 @@ from sklearn.cross_validation import cross_val_score
 from tabulate import tabulate
 from sklearn import neighbors
 import csv
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.naive_bayes import GaussianNB
 
 def pca_plotting (city_name, datafr):
     city = datafr['city'] == city_name
@@ -173,6 +175,89 @@ def crossvalidation (city_name, datafr):
     plt.ylabel('cv score')
     plt.show()
     
+def crossvalidationRandomForest (city_name, datafr):
+    city = datafr['city'] == city_name
+    
+    if city_name is 'sj':
+        print 'San Juan Cross-Validation:'
+    elif city_name is 'iq':
+        print 'Iquitos Cross-Validation:'
+    
+    datafr = datafr[city]
+    datafr = datafr.fillna(0)
+    
+    if city_name is 'sj':
+        regressor = RandomForestRegressor(n_estimators= 4, max_depth = 5, criterion='mae', random_state=0)
+    elif city_name is 'iq':
+        regressor = RandomForestRegressor(n_estimators= 4, max_depth = 3, criterion='mae', random_state=0)
+    
+    if city_name is 'sj':
+        features_selected = ['year', 'weekofyear', 'reanalysis_precip_amt_kg_per_m2', 'reanalysis_specific_humidity_g_per_kg', 'station_avg_temp_c', 'station_max_temp_c', 'station_min_temp_c']
+    elif city_name is 'iq':
+        features_selected = ['year', 'weekofyear', 'reanalysis_precip_amt_kg_per_m2', 'reanalysis_specific_humidity_g_per_kg', 'reanalysis_tdtr_k', 'precipitation_amt_mm', 'reanalysis_tdtr_k', 'station_diur_temp_rng_c', 'reanalysis_sat_precip_amt_mm']
+    
+    datafr_features = datafr[features_selected]
+    total_cases = datafr['total_cases']
+    
+    regressor.fit(datafr_features, total_cases)
+        
+    list1 = zip(datafr_features, regressor.feature_importances_)
+    print tabulate(list1, headers = ['Feature', 'Relevance'])
+
+    total_scores = []
+   
+    for i in range(2, 30):
+        regressor = RandomForestRegressor(max_depth = i)
+        regressor.fit(datafr_features, total_cases)
+        scores = -cross_val_score(regressor, datafr_features, total_cases,
+                                  scoring = 'neg_mean_absolute_error', cv = 10)
+        total_scores.append(scores.mean())
+    
+    plt.plot(range(2,30), total_scores, marker = 'o')
+    plt.xlabel('max_depth')
+    plt.ylabel('cv score')
+    plt.show()
+    
+def randomForest (city_name, datafr, test, submission, list_csv):
+    
+    city = datafr['city'] == city_name
+    city_t = test['city'] == city_name
+    
+    datafr = datafr[city]
+    test = test[city_t]
+    datafr = datafr.fillna(0)
+    test = test.fillna(0)
+    
+    if city_name is 'sj':
+        X = ['year', 'weekofyear', 'reanalysis_precip_amt_kg_per_m2', 'reanalysis_specific_humidity_g_per_kg', 'station_avg_temp_c', 'station_max_temp_c', 'station_min_temp_c']
+        X_test = ['year', 'weekofyear', 'reanalysis_precip_amt_kg_per_m2', 'reanalysis_specific_humidity_g_per_kg', 'station_avg_temp_c', 'station_max_temp_c', 'station_min_temp_c']
+        list_csv.append(('city', 'year', 'weekofyear', 'total_cases'))
+        rf = RandomForestRegressor(n_estimators= 4, max_depth = 5, criterion='mae', random_state=0)
+    elif city_name is 'iq':
+        X = ['year', 'weekofyear', 'reanalysis_precip_amt_kg_per_m2', 'reanalysis_specific_humidity_g_per_kg', 'reanalysis_tdtr_k', 'precipitation_amt_mm', 'reanalysis_tdtr_k', 'station_diur_temp_rng_c', 'reanalysis_sat_precip_amt_mm']
+        X_test = ['year', 'weekofyear', 'reanalysis_precip_amt_kg_per_m2', 'reanalysis_specific_humidity_g_per_kg', 'reanalysis_tdtr_k', 'precipitation_amt_mm', 'reanalysis_tdtr_k', 'station_diur_temp_rng_c', 'reanalysis_sat_precip_amt_mm']
+        rf = RandomForestRegressor(n_estimators= 4, max_depth = 3, criterion='mae', random_state=0)
+
+    X = datafr[X]
+    y = datafr['total_cases'] 
+    X_test = test[X_test]
+        
+    prediction_model = rf.fit(X, y)
+    prediction = prediction_model.predict(X_test)
+
+    cont = 0
+
+    for i, row in submission.iterrows():
+        
+        if city_name == 'sj' and row.city == 'sj':
+            list_csv.append((row.city, int(round(row.year)), int(round(row.weekofyear)), int(round(prediction[cont]))))
+            cont += 1
+        elif city_name == 'iq' and row.city == 'iq':
+            list_csv.append((row.city, int(round(row.year)), int(round(row.weekofyear)), int(round(prediction[cont]))))
+            cont += 1
+
+    return list_csv
+    
 def knnfunction (city_name, datafr, test, submission, list_csv):
     
     city = datafr['city'] == city_name
@@ -214,6 +299,7 @@ def knnfunction (city_name, datafr, test, submission, list_csv):
 
     return list_csv
     
+    
 if __name__ == '__main__':
     features = pd.read_csv('../Data/dengue_features_train.csv')
     labels = pd.read_csv('../Data/dengue_labels_train.csv')
@@ -224,10 +310,10 @@ if __name__ == '__main__':
     list_csv = []
     
     for i in cities:
-        pca_plotting (i, datafr)
-        correlation_plotting (i, datafr)
-        crossvalidation(i, datafr)
-        list_csv = (knnfunction(i, datafr, test, submission, list_csv))
+        #pca_plotting (i, datafr)
+        #correlation_plotting (i, datafr)
+        crossvalidationRandomForest(i, datafr)
+        list_csv = (randomForest(i, datafr, test, submission, list_csv))
 
     with open("../Data/output_activity6.csv", "wb") as f:
         writer = csv.writer(f)
