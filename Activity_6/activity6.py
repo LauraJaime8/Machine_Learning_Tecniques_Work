@@ -310,8 +310,8 @@ if __name__ == '__main__':
     list_csv = []
     
     for i in cities:
-        #pca_plotting (i, datafr)
-        #correlation_plotting (i, datafr)
+        pca_plotting (i, datafr)
+        correlation_plotting (i, datafr)
         crossvalidationRandomForest(i, datafr)
         list_csv = (randomForest(i, datafr, test, submission, list_csv))
 
